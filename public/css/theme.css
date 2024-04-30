@@ -3384,9 +3384,6 @@ input[type="button"].btn-block {
   margin-left: 0.255em;
   vertical-align: 0.255em;
   content: "";
-}
-
-.dropleft .dropdown-toggle::after {
   display: none;
 }
 
@@ -5079,9 +5076,6 @@ input[type="button"].btn-block {
 
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: underline;
-}
-
-.breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: none;
 }
 
@@ -56286,8 +56280,6 @@ textarea.form-control-lg {
   margin-left: 0.255em;
   vertical-align: 0.255em;
   content: "";
-}
-.dropstart .dropdown-toggle::after {
   display: none;
 }
 .dropstart .dropdown-toggle::before {
@@ -78678,8 +78670,6 @@ textarea.form-control-lg {
   margin-left: 0.255em;
   vertical-align: 0.255em;
   content: "";
-}
-.dropstart .dropdown-toggle::after {
   display: none;
 }
 .dropstart .dropdown-toggle::before {

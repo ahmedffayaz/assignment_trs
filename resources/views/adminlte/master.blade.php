@@ -24,13 +24,13 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-  @include('layout.header')
+  @include('adminlte.header')
 
-  @include('layout.sidebar')
+  @include('adminlte.sidebar')
 
   @yield('content')
 
-  @include('layout.footer')
+  @include('adminlte.footer')
 
 
 </body>
