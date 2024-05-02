@@ -34,11 +34,6 @@
 <script>
     $(document).ready(function() {
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        // $.ajaxSetup({
-        //         headers:{
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         }
-        // });
         var form = $('#ajaxForm')[0]
         $('#saveBtn').click(function() {
             console.log('clicked');
@@ -51,13 +46,13 @@
                 contentType: false,
                 data: myform,
                 headers: {
-        'X-CSRF-TOKEN': csrfToken // Include CSRF token in the headers
+        'X-CSRF-TOKEN': csrfToken
     },
                 success: function(response)
                 {
                     if(response)
                     {
-                        $('#ajaxForm')[0].reset(); // Reset the form
+                        $('#ajaxForm')[0].reset();
                         swal("Product Stored",response, "success");
                     }
                 },
@@ -66,7 +61,6 @@
                    if(error)
                    {
                     console.log(error)
-                    // responceText
                    }
                 }
                 

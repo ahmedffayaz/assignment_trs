@@ -7,7 +7,7 @@
       <div class="card-body">
         <h5 class="card-title">Add Products</h5>
         <p class="card-text">Click Here To Add Your New Product</p>
-        <a href="/add/product" class="btn btn-primary">Add New Product</a>
+        <a href="{{route('add.product')}}" class="btn btn-primary">Add New Product</a>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
       <div class="card-body">
         <h5 class="card-title">View All Producst</h5>
         <p class="card-text">Click Here To Manage Your Producs.</p>
-        <a href="/products/view" class="btn btn-primary">See All Products</a>
+        <a href="{{route('products.view')}}" class="btn btn-primary">See All Products</a>
       </div>
     </div>
   </div>
