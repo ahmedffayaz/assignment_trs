@@ -1,11 +1,6 @@
 <?php
-
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
+;
+use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,14 +29,17 @@ Route::get('/dashboard', function () {
     return view('adminlte.master');
 })->middleware(['auth'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // Our resource routes
-    Route::resource('roles', RoleController::class);
-    Route::resource('users', UserController::class);
-    Route::resource('products', ProductController::class);
-});
+Route::get('/products/view', [ProductsController::class, 'index'])->name('products.view')->middleware(['auth']);
+Route::get('/products/{id}', [ProductsController::class, 'edit'])->name('products.edit')->middleware(['auth']);
+Route::get('/delete/{id}', [ProductsController::class, 'delete'])->name('products.delete')->middleware(['auth']);
+Route::get('/show/{id}', [ProductsController::class, 'show'])->name('products.show')->middleware(['auth']);
+
+Route::get('/add/product', [ProductsController::class, 'showCreate'])->middleware(['auth']);
+Route::post('/create/product', [ProductsController::class, 'create'])->name('product.create')->middleware(['auth']);
+Route::post('/edit', [ProductsController::class, 'update'])->name('products.edits')->middleware(['auth']);
+
+
+
+
+
 require __DIR__.'/auth.php';
