@@ -10,11 +10,20 @@ use Yajra\DataTables\DataTables;
 
 class ProductsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:product-list')->only('index');
+        $this->middleware('can:product-create')->only('create');
+        $this->middleware('can:product-edit')->only('edit');
+        $this->middleware('can:product-delete')->only('delete');
+    }
+
+
     public function index(Request $request)
     {
         try {
             if ($request->ajax()) {
-                $data = Product::all();
+                $data = Product::orderByDesc('created_at');
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row) {
@@ -36,9 +45,6 @@ class ProductsController extends Controller
     public function create(CheckRequest $request)
     {
         try {
-            if (!auth()->user()->can('store-product')) {
-                return response()->json(['message' => 'You have no Permsiion to store Product'], 403);
-            } else {
                 $validated = $request->validated();
                 $storeProduct = Product::create([
                     'name' => $request->name,
@@ -56,7 +62,6 @@ class ProductsController extends Controller
                     $productRelation->save();
                 }
                 return response()->json("Product stored Successfully", 200);
-            }
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -66,11 +71,7 @@ class ProductsController extends Controller
     public function update(Request $request)
     {
         try {
-            if (!auth()->user()->can('update-product')) {
-                return response()->json(['message' => 'You have no Permsiion to update Product'], 403);
-            } else {
                 $validated = $request->validated();
-
                 $product = Product::findOrFail($request->Productid)->first();
                 if ($product) {
                     $product->update([
@@ -80,7 +81,7 @@ class ProductsController extends Controller
                     ]);
                     return response()->json("Product Updated Successfully", 200);
                 }
-            }
+            
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -99,12 +100,8 @@ class ProductsController extends Controller
     public function edit($id)
     {
         try {
-            if (!auth()->user()->can('edit-product')) {
-                return response()->json(['message' => 'You have no Permsiion to edit Product'], 403);
-            } else {
                 $product = Product::where('id', $id)->first();
                 return response()->json($product);
-            }
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -113,13 +110,10 @@ class ProductsController extends Controller
     public function delete($id)
     {
         try {
-            if (!auth()->user()->can('delete-product')) {
-                return response()->json(['message' => 'You have no Permsiion to delete Product'], 403);
-            } else {
                 $product = Product::where('id', $id)->first();
                 $product->delete();
                 return response()->json("Product Deleted Successfully", 200);
-            }
+            
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }

@@ -24,7 +24,7 @@ class CheckRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50',
+            'name' => 'required|string|max:50|unique:products',
             'price' => 'required|numeric',
             'description' => 'required',
             'image'=>'required'

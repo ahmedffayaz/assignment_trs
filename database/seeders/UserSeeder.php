@@ -13,9 +13,21 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::insert([
-            // ['name'=>'admin','email'=>'admin@admin.com','password'=>bcrypt('Pass@123'),'userType'=>'admin'],
-            ['name'=>'Sub-admin','email'=>'subadmin@admin.com','password'=>bcrypt('Pass@123'),'userType'=>'subAdmin'],
-        ]);
+       $users = [
+            ['name'=>'Admin','email'=>'admin@admin.com','password'=>bcrypt('Pass@123'),'userType'=>'admin'],
+            ['name'=>'Sub Admin','email'=>'subadmin@admin.com','password'=>bcrypt('Pass@123'),'userType'=>'sub_admin'],
+        ];
+
+        foreach($users as $value) {
+            $user = User::updateOrCreate([
+                'email' => $value['email']
+            ], [
+                'name' => $value['name'],
+                'password' => $value['password'],
+                'userType' => $value['userType']
+            ]);
+
+            $user->assignRole($user->userType);
+        }
     }
 }
